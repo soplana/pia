@@ -29,20 +29,24 @@ pia.ObjectConstruction.prototype = {
     var PiaObject = function(){};
 
     function classEval(proto){
-      var __self__ = this;
+      var __self__  = this;
       var __proto__ = PiaObject.prototype;
       
-      for(var __privateProperty__ in __privateProperties__)
+      for(var __privateProperty__ in __privateProperties__){
+        if(typeof this[__publicProperty__] != 'function') continue;
         eval(
           'var '+__privateProperty__+' = '+
           this[__privateProperty__].toString()+';'
         );
-      
-      for(var __publicProperty__ in __publicProperties__)
+      }; 
+
+      for(var __publicProperty__ in __publicProperties__){
+        if(typeof this[__publicProperty__] != 'function') continue;
         eval(
           '__proto__.'+__publicProperty__+' = function(){var func='+
           this[__publicProperty__].toString()+';return func.apply(__self__, arguments)};'
         );
+      }; 
     };
 
     classEval.call(klassInstance)
