@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<script type="text/javascript" src="../thule/thule_support.js"></script>
+		<script type="text/javascript">
+		  function load(){	
+        var User = pia.makeClass({
+
+          initialize : function(userName){
+            this.name = userName;
+          },
+
+          public : {
+            getName : function(){
+              return this.makeName();
+            }
+          },
+
+          private : {
+            makeName : function(){
+              return this.name.toUpperCase();
+            }
+          }
+
+        });
+
+        var Article = pia.makeClass({
+
+          initialize : function(title){
+            this.title = title;
+          },
+
+          public : {
+            getTitle : function(){
+              return this.prefixTitle() + this.title;
+            },
+            
+            prefixTitle : function(){ 
+              return "Javascript Library: ";
+            }
+          }
+
+        });
+
+        var article = Article.new("pia.js");
+        console.log(article.title); // undefined
+        console.log(article.getTitle()); // Javascript Library: pia.js
+        
+        var user = User.new("tom");
+        console.log(user.getName()); // TOM
+        console.log(user.makeName()); // user has no method 'makeName'
+			}
+		</script>
+	</head>
+
+	<body onload="load()">
+	
+	</body>
+</html>
