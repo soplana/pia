@@ -28,9 +28,8 @@ pia.ObjectConstruction.prototype = {
     var __privateProperties__ = this.private;
     var PiaObject = function(){};
 
-    function classEval(proto){
+    function classEval(__proto__){
       var __self__  = this;
-      var __proto__ = PiaObject.prototype;
       
       for(var __privateProperty__ in __privateProperties__){
         if(typeof this[__publicProperty__] != 'function') continue;
@@ -49,7 +48,7 @@ pia.ObjectConstruction.prototype = {
       }; 
     };
 
-    classEval.call(klassInstance)
+    classEval.call(klassInstance, PiaObject.prototype)
     return new PiaObject();
   },
 
