@@ -64,3 +64,10 @@ console.log(user.getName()); // SOPLANA
 
 console.log(user.makeName()); // user has no method 'makeName'
 ```
+
+
+## test
+
+```
+$ mocha test/pia.js 
+```

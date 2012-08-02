@@ -1,4 +1,4 @@
-var pia = {};
+pia = {};
 
 pia.ObjectConstruction = function(_class){
   this.klass      = _class;
