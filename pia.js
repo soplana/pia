@@ -71,7 +71,7 @@ pia.proto.convert = function(klassInstance){
       );
     }; 
   };
-
+  
   classEval.call(klassInstance, PiaObject.prototype)
   return new PiaObject();
 };
@@ -93,11 +93,11 @@ pia.proto.appendToProterty = function(Klass){
 //***********************************************
 // add InstanceConstruction methods
 //***********************************************
-pia.InstanceConstruction.prototype.new = pia.proto.new;
-pia.InstanceConstruction.prototype.createInstanceMethods = pia.proto.createInstanceMethods;
-pia.InstanceConstruction.prototype.callInitialize = pia.proto.callInitialize;
-pia.InstanceConstruction.prototype.convert = pia.proto.convert;
-pia.InstanceConstruction.prototype.appendToProterty = pia.proto.appendToProterty;
+pia.InstanceConstruction.prototype.new                    = pia.proto.new;
+pia.InstanceConstruction.prototype.createInstanceMethods  = pia.proto.createInstanceMethods;
+pia.InstanceConstruction.prototype.callInitialize         = pia.proto.callInitialize;
+pia.InstanceConstruction.prototype.convert                = pia.proto.convert;
+pia.InstanceConstruction.prototype.appendToProterty       = pia.proto.appendToProterty;
 
 
 //***********************************************
@@ -111,28 +111,35 @@ pia.ClassConstruction.prototype.new = function(){
 };
 
 pia.ClassConstruction.prototype.createInstanceMethods = pia.proto.createInstanceMethods;
-pia.ClassConstruction.prototype.callInitialize = function(klassInstance, args){
+pia.ClassConstruction.prototype.callInitialize        = function(klassInstance, args){
   if(!this.initialize) return klassInstance;
 
   this.initialize.call(klassInstance, args);
   return klassInstance;
 };
 
-pia.ClassConstruction.prototype.convert = pia.proto.convert;
-pia.ClassConstruction.prototype.appendToProterty = pia.proto.appendToProterty;
-
-pia.ClassConstruction.prototype.makePublicProperty = function(_class){
+pia.ClassConstruction.prototype.convert             = pia.proto.convert;
+pia.ClassConstruction.prototype.appendToProterty    = pia.proto.appendToProterty;
+pia.ClassConstruction.prototype.makePublicProperty  = function(_class){
   var public = {};
   if(!!_class.self){
     for(var key in _class.self.public){
       public[key] = _class.self.public[key];
     };
   };
-  public["new"] = function(){
-    for(var i=0, args=[]; i<arguments.length; i++) args[i]=arguments[i];
-    return this.instanceConst.new(args);
-  }
+  public["new"]    = this.createNewMethod; 
+  public["extend"] = this.createExtendMethod;
   return public;
+};
+
+pia.ClassConstruction.prototype.createNewMethod = function(){
+  for(var i=0, args=[]; i<arguments.length; i++) args[i]=arguments[i];
+  return this.instanceConst.new(args);
+};
+
+pia.ClassConstruction.prototype.createExtendMethod = function(SuperClass){
+  //console.log(SuperClass.new())
+  return this;
 };
 
 
