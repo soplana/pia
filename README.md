@@ -4,65 +4,66 @@ pia.js is a library that supports object-oriented programming in javascirpt.
 
 
 ## sample
+
 ```javascript:
-var Article = pia.makeClass({
-
-  // constructor
-  initialize : function(title){
-    this.title = title; // private property
-  },
-
-  // public methods
-  public : {
-    getTitle : function(){
-      return this.prefixTitle() + this.title;
-    },
-    
-    prefixTitle : function(){ 
-      return "Javascript Library: ";
-    }
-  }
-
-});
-
-var User = pia.makeClass({
+var Library = pia.makeClass({
 
   // constructor
   initialize : function(name){
-    this.name = name; // private property
+    this.name = name; // private instance property
   },
 
-  // public methods
+  // public instance methods
   public : {
     getName : function(){
-      return this.makeName();
+      return this.prefix() + this.makeName();
     },
-
+    
     setName : function(name){
       return this.name = name;
+    },
+    
+    prefix : function(){ 
+      return "Javascript Library: ";
     }
   },
-
-  // private methods
+  
+  // private instance methods
   private : {
     makeName : function(){
       return this.name.toUpperCase();
     }
-  }
+  },
 
+  // class method
+  self : {
+    // public class method
+    public : {
+      libraryName : function(){
+        return "pia" + this.extension();
+      }
+    },
+    // private class method
+    private : {
+      extension : function(){
+        return ".js";
+      }
+    },
+  }
 });
 
-var article = Article.new("pia.js");
-console.log(article.title); // undefined
-console.log(article.getTitle()); // Javascript Library: pia.js
 
-var user = User.new("tom");
-console.log(user.getName()); // TOM
+console.log( Library.libraryName() ); // pia.js
 
-user.setName("soplana");
-console.log(user.getName()); // SOPLANA 
+var library = Library.new("pia.js");
 
-console.log(user.makeName()); // user has no method 'makeName'
+console.log( library.name );          // undefined
+console.log( library.getName() );     // Javascript Library: PIA.JS 
+
+library.setName("jquery");
+
+console.log( library.getName() );     // Javascript Library: JQUERY 
+console.log( library.makeName() );    // library has no method 'makeName'
 ```
 
 

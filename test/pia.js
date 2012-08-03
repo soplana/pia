@@ -1,7 +1,7 @@
 var assert = require("assert")
 require("../pia")
 
-describe('pia.ObjectConstruction', function(){
+describe('instance method', function(){
   var user = null;
   before(function(){
     var User = pia.makeClass({
