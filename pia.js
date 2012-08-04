@@ -22,6 +22,7 @@ pia.ClassConstruction = function(_class){
   this.initialize = function(klass){
     this.instanceConst = new pia.InstanceConstruction(klass);
   };
+  return this;
 };
 
 
@@ -30,9 +31,9 @@ pia.ClassConstruction = function(_class){
 //***********************************************
 pia.proto = {};
 pia.proto.new = function(){
-  var Klass = function(){};
-  this.appendToProterty(Klass);
-  var klassInstance = this.callInitialize(new Klass(), arguments);
+  var PiaBaseObject = function(){};
+  this.appendToProterty(PiaBaseObject);
+  var klassInstance  = this.callInitialize(new PiaBaseObject(), arguments);
   return this.createInstanceMethods(klassInstance);
 };
 
@@ -54,14 +55,6 @@ pia.proto.convert = function(klassInstance){
 
   function classEval(__proto__){
     var __self__  = this;
-    
-    for(var __privateProperty__ in __privateProperties__){
-      if(typeof this[__publicProperty__] != 'function') continue;
-      eval(
-        'var '+__privateProperty__+' = '+
-        this[__privateProperty__].toString()+';'
-      );
-    }; 
 
     for(var __publicProperty__ in __publicProperties__){
       if(typeof this[__publicProperty__] != 'function') continue;
@@ -70,13 +63,14 @@ pia.proto.convert = function(klassInstance){
         this[__publicProperty__].toString()+';return func.apply(__self__, arguments)};'
       );
     }; 
+
   };
   
   classEval.call(klassInstance, PiaObject.prototype)
   return new PiaObject();
 };
 
-pia.proto.appendToProterty = function(Klass){
+pia.proto.appendToProterty = function(PiaBaseObject){
   function to(klass, properties){
     for(var property in properties)
       klass.prototype[property] = properties[property];
@@ -84,9 +78,9 @@ pia.proto.appendToProterty = function(Klass){
     return klass
   };
 
-  Klass = to(Klass, this.public);
-  Klass = to(Klass, this.private);
-  return Klass;
+  PiaBaseObject = to(PiaBaseObject, this.public);
+  PiaBaseObject = to(PiaBaseObject, this.private);
+  return PiaBaseObject;
 };
 
 
@@ -104,9 +98,9 @@ pia.InstanceConstruction.prototype.appendToProterty       = pia.proto.appendToPr
 // add ClassConstruction methods
 //***********************************************
 pia.ClassConstruction.prototype.new = function(){
-  var Klass = function(){};
-  this.appendToProterty(Klass);
-  var klassInstance = this.callInitialize(new Klass(), this.klass);
+  var PiaBaseObject = function(){};
+  this.appendToProterty(PiaBaseObject);
+  var klassInstance  = this.callInitialize(new PiaBaseObject(), this.klass);
   return this.createInstanceMethods(klassInstance);
 };
 
@@ -138,7 +132,8 @@ pia.ClassConstruction.prototype.createNewMethod = function(){
 };
 
 pia.ClassConstruction.prototype.createExtendMethod = function(SuperClass){
-  //console.log(SuperClass.new())
+  //console.log(SuperClass)
+  //console.log(this.instanceConst.new())
   return this;
 };
 
@@ -147,14 +142,8 @@ pia.ClassConstruction.prototype.createExtendMethod = function(SuperClass){
 // pia.BaseObject Class 
 //***********************************************
 pia.BaseObject = function(_class){
-  this.classConst    = new pia.ClassConstruction(_class);
+  this.classConst = new pia.ClassConstruction(_class);
   return this.classConst.new();
-};
-
-pia.BaseObject.prototype = {
-  addClassMethods : function(){
-    return this.classConst.new();
-  }
 };
 
 
