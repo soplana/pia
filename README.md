@@ -78,8 +78,8 @@ var User = pia.makeClass({
   },
 
   public : {
-    signIn : function(){
-      return "hello " + this.name;
+    signIn : function(prefix){
+      return (prefix || "welcome") + " " + this.name;
     }
   },
 
@@ -96,7 +96,11 @@ var AdminUser = pia.makeClass({
   },
 
   public : {
-    isAdmin : function(){
+    signIn : function(){
+      return _super_("hello");
+    },
+
+    isAdmin : function(unko){
       return this.message(true);
     }
   }
@@ -104,7 +108,7 @@ var AdminUser = pia.makeClass({
 
 var GuestUser = pia.makeClass({
   public : {
-    isAdmin : function(){
+    isAdmin : function(chinko){
       return this.message(false);
     }
   }
@@ -117,7 +121,7 @@ console.log( adminUser.signIn()  ); // hello soplana
 
 var guestUser = GuestUser.new();
 console.log( guestUser.isAdmin() ); // guest user 
-console.log( guestUser.signIn()  ); // hello guest user
+console.log( guestUser.signIn()  ); // welcome guest user 
 ```
 
 
