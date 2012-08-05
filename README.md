@@ -91,13 +91,17 @@ var User = pia.makeClass({
 });
 
 var AdminUser = pia.makeClass({
-  initialize : function(name){
+  initialize : function(name, pass){
     this.name = name;
+    this.pass = pass;
   },
 
   public : {
     signIn : function(){
-      return _super_("hello");
+      if(this.pass === 1234)
+        return _super_("hello", 1234);
+      else
+        return "could not sign in";
     },
 
     isAdmin : function(unko){
@@ -115,13 +119,14 @@ var GuestUser = pia.makeClass({
 }).extend(User);
 
 
-var adminUser = AdminUser.new("soplana");
-console.log( adminUser.isAdmin() ); // admin user 
-console.log( adminUser.signIn()  ); // hello soplana 
+var adminUser = AdminUser.new("soplana", 1234);
+console.log( adminUser.isAdmin() );                    // admin user 
+console.log( adminUser.signIn()  );                    // hello soplana 
+console.log( AdminUser.new("soplana", 123).signIn() ); // could not sign in 
 
 var guestUser = GuestUser.new();
-console.log( guestUser.isAdmin() ); // guest user 
-console.log( guestUser.signIn()  ); // welcome guest user 
+console.log( guestUser.isAdmin() );                    // guest user 
+console.log( guestUser.signIn()  );                    // welcome guest user 
 ```
 
 
