@@ -99,7 +99,7 @@ var AdminUser = pia.makeClass({
   public : {
     signIn : function(){
       if(this.pass === 1234)
-        return _super_("hello", 1234);
+        return _super_("hello");
       else
         return "could not sign in";
     },
