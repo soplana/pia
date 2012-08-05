@@ -5,6 +5,8 @@ pia.js is a library that supports object-oriented programming in javascirpt.
 
 ## sample
 
+### public/private  
+
 ```javascript:
 var Library = pia.makeClass({
 
@@ -64,6 +66,58 @@ library.setName("jquery");
 
 console.log( library.getName() );     // Javascript Library: JQUERY 
 console.log( library.makeName() );    // library has no method 'makeName'
+```
+
+
+### extend 
+
+```javascript:
+var User = pia.makeClass({
+  initialize : function(){
+    this.name = "guest user";
+  },
+
+  public : {
+    signIn : function(){
+      return "hello " + this.name;
+    }
+  },
+
+  private : {
+    message : function(isAdmin){
+      return isAdmin ? "admin user" : "guest user";
+    }
+  }
+});
+
+var AdminUser = pia.makeClass({
+  initialize : function(name){
+    this.name = name;
+  },
+
+  public : {
+    isAdmin : function(){
+      return this.message(true);
+    }
+  }
+}).extend(User);
+
+var GuestUser = pia.makeClass({
+  public : {
+    isAdmin : function(){
+      return this.message(false);
+    }
+  }
+}).extend(User);
+
+
+var adminUser = AdminUser.new("soplana");
+console.log( adminUser.isAdmin() ); // admin user 
+console.log( adminUser.signIn()  ); // hello soplana 
+
+var guestUser = GuestUser.new();
+console.log( guestUser.isAdmin() ); // guest user 
+console.log( guestUser.signIn()  ); // hello guest user
 ```
 
 
