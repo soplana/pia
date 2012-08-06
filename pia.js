@@ -65,7 +65,7 @@ pia.proto.convert = function(klassInstance){
       var funcString = '__proto__.'+__publicProperty__+' = function(){var func='+
                         this[__publicProperty__].toString()+';return func.apply(__self__, arguments)}';
       if(!!__super__){
-        funcString = '(function(){ '+'function _super_(){'+
+        funcString = '(function(){ '+'function $super(){'+
         'return __super__["'+__publicProperty__+'"].apply(__self__, arguments)};'+funcString+' })();';
       };
       eval(funcString);
