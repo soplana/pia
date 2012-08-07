@@ -1,3 +1,6 @@
+//***********************************************
+// pia.js v0.0.2
+//***********************************************
 pia = {};
 
 
@@ -125,6 +128,7 @@ pia.proto.merge = function merge(mainObj, subObj){
     if(subObj.hasOwnProperty(subKey)) obj[subKey] = subObj[subKey];
   return obj;
 };
+
 
 //***********************************************
 // add InstanceConstruction methods

@@ -3,6 +3,10 @@
 pia.js is a library that supports object-oriented programming in javascirpt.
 
 
+## current version
+v0.0.2
+
+
 ## sample
 
 ### public/private  
