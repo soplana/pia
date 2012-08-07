@@ -164,4 +164,20 @@ describe('extend', function(){
   it('guestUser.name should not be override', function(){
     assert.equal("guest user", guestUser.getName());
   });
+  
+  it('adminUser.signIn should be override', function(){
+    assert.equal("hello soplana", adminUser.signIn());
+  });
+
+  it('guestUser.signIn should not be override', function(){
+    assert.equal("welcome guest user", guestUser.signIn());
+  });
+  
+  it('adminUser.isAdmin should be override', function(){
+    assert.equal("admin user", adminUser.isAdmin());
+  });
+
+  it('guestUser.isAdmin should not be override', function(){
+    assert.equal("guest user", guestUser.isAdmin());
+  });
 });
