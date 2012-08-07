@@ -4,7 +4,7 @@ require("../pia")
 describe('instance method', function(){
   var user = null;
   before(function(){
-    var User = pia.makeClass({
+    var User = $class({
       initialize : function(name){
         this.name = name;
       },

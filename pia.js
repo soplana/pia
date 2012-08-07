@@ -195,3 +195,4 @@ pia.BaseObject = function(_class){
 pia.makeClass = function(_class){
   return new pia.BaseObject(_class);
 };
+$class = pia.makeClass;
