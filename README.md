@@ -8,7 +8,7 @@ pia.js is a library that supports object-oriented programming in javascirpt.
 ### public/private  
 
 ```javascript:
-var Library = $class({  // or pia.makeClass
+var Library = $class({
 
   // constructor
   initialize : function(name){
@@ -72,7 +72,7 @@ console.log( library.makeName() );    // library has no method 'makeName'
 ### extend 
 
 ```javascript:
-var User = $class({  // or pia.makeClass
+var User = $class({
   initialize : function(){
     this.name = "guest user";
   },
@@ -90,7 +90,7 @@ var User = $class({  // or pia.makeClass
   }
 });
 
-var AdminUser = $class({  // or pia.makeClass
+var AdminUser = $class({
   initialize : function(name, pass){
     this.name = name;
     this.pass = pass;
@@ -110,7 +110,7 @@ var AdminUser = $class({  // or pia.makeClass
   }
 }).extend(User);
 
-var GuestUser = $class({  // or pia.makeClass
+var GuestUser = $class({
   public : {
     isAdmin : function(chinko){
       return this.message(false);
