@@ -108,7 +108,7 @@ var AdminUser = $class({
         return "could not sign in";
     },
 
-    isAdmin : function(unko){
+    isAdmin : function(){
       return this.message(true);
     }
   }
@@ -116,7 +116,7 @@ var AdminUser = $class({
 
 var GuestUser = $class({
   public : {
-    isAdmin : function(chinko){
+    isAdmin : function(){
       return this.message(false);
     }
   }
