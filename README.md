@@ -14,48 +14,48 @@ v0.0.2
 ```javascript:
 var Library = $class({
 
-  // constructor
-  initialize : function(name){
-    this.name = name; // private instance property
-  },
-
-  // public instance methods
-  public : {
-    getName : function(){
-      return this.prefix() + this.makeName();
+    // constructor
+    initialize : function(name){
+        this.name = name; // private instance property
     },
-    
-    setName : function(name){
-      return this.name = name;
-    },
-    
-    prefix : function(){ 
-      return "Javascript Library: ";
-    }
-  },
-  
-  // private instance methods
-  private : {
-    makeName : function(){
-      return this.name.toUpperCase();
-    }
-  },
 
-  // class method
-  self : {
-    // public class method
+    // public instance methods
     public : {
-      libraryName : function(){
-        return "pia" + this.extension();
-      }
+        getName : function(){
+            return this.prefix() + this.makeName();
+        },
+
+        setName : function(name){
+            return this.name = name;
+        },
+
+        prefix : function(){ 
+            return "Javascript Library: ";
+        }
     },
-    // private class method
+
+             // private instance methods
     private : {
-      extension : function(){
-        return ".js";
-      }
+        makeName : function(){
+            return this.name.toUpperCase();
+        }
     },
-  }
+
+    // class method
+    self : {
+        // public class method
+        public : {
+            libraryName : function(){
+                return "pia" + this.extension();
+            }
+        },
+                 // private class method
+        private : {
+            extension : function(){
+                return ".js";
+            }
+        },
+    }
 });
 
 
@@ -77,49 +77,59 @@ console.log( library.makeName() );    // library has no method 'makeName'
 
 ```javascript:
 var User = $class({
-  initialize : function(){
-    this.name = "guest user";
-  },
+    initialize : function(){
+        this.name = this.name || "guest user";
+        this.pass = this.pass || "guest";
+    },
 
-  public : {
-    signIn : function(prefix){
-      return (prefix || "welcome") + " " + this.name;
-    }
-  },
+    public : {
+        signIn : function(prefix){
+            return (prefix || "welcome") + " " + this.name;
+        },
 
-  private : {
-    message : function(isAdmin){
-      return isAdmin ? "admin user" : "guest user";
+        getPass : function(){
+            return this.pass;
+        }
+    },
+
+    private : {
+        message : function(isAdmin){
+            return isAdmin ? "admin user" : "guest user";
+        }
     }
-  }
 });
 
 var AdminUser = $class({
-  initialize : function(name, pass){
-    this.name = name;
-    this.pass = pass;
-  },
-
-  public : {
-    signIn : function(){
-      if(this.pass === 1234)
-        return $super("hello");
-      else
-        return "could not sign in";
+    initialize : function(name, pass){
+        this.name = name;
+        this.pass = pass;
     },
 
-    isAdmin : function(){
-      return this.message(true);
+    public : {
+        signIn : function(){
+            if(this.pass === 1234)
+                return $super("hello");
+            else
+                return "could not sign in";
+        },
+
+        isAdmin : function(){
+            return this.message(true);
+        }
     }
-  }
 }).extend(User);
 
 var GuestUser = $class({
-  public : {
-    isAdmin : function(){
-      return this.message(false);
+    initialize : function(name){
+        this.name = name;
+        $super();
+    },
+
+    public : {
+        isAdmin : function(){
+            return this.message(false);
+        }
     }
-  }
 }).extend(User);
 
 
@@ -128,9 +138,11 @@ console.log( adminUser.isAdmin() );                    // admin user
 console.log( adminUser.signIn()  );                    // hello soplana 
 console.log( AdminUser.new("soplana", 123).signIn() ); // could not sign in 
 
-var guestUser = GuestUser.new();
+var guestUser = GuestUser.new("soplan");
 console.log( guestUser.isAdmin() );                    // guest user 
 console.log( guestUser.signIn()  );                    // welcome guest user 
+console.log( guestUser.getName() );                    // soplana
+console.log( guestUser.getPass() );                    // guest
 ```
 
 
